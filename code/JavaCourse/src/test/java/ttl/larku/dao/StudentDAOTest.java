@@ -1,0 +1,91 @@
+package ttl.larku.dao;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import ttl.larku.dao.inmemory.InMemoryStudentDAO;
+import ttl.larku.domain.Student;
+import ttl.larku.domain.Student.Status;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class StudentDAOTest {
+
+	private String name1 = "Bloke";
+	private String name2 = "Blokess";
+	private LocalDate dob1 = LocalDate.of(1990, 2, 14);
+	private LocalDate dob2 = LocalDate.of(1975, 8, 24);
+	private String newName = "Karl Jung";
+	private String phoneNumber1 = "290 298 4790";
+	private String phoneNumber2 = "3838 939 93939";
+	private Student student1;
+	private Student student2;
+	
+	private InMemoryStudentDAO dao;
+	
+	@BeforeEach
+	public void setup() {
+		dao = new InMemoryStudentDAO();
+		dao.deleteStore();
+		dao.createStore();
+		
+		student1 = new Student(name1, dob1, Status.FULL_TIME, phoneNumber1);
+		student2 = new Student(name2, dob2, Status.HIBERNATING, phoneNumber2);
+		
+		dao.create(student1);
+		dao.create(student2);
+	}
+	
+	
+	@Test
+	public void testGetAll() {
+		List<Student> students = dao.getAll();
+		assertEquals(2, students.size());
+	}
+	
+	@Test
+	public void testCreate() {
+		
+		int newId = dao.create(student1).getId();
+		
+		Student resultstudent = dao.get(newId);
+		
+		assertEquals(newId, resultstudent.getId());
+	}
+	
+	@Test
+	public void testUpdate() {
+		int newId = dao.create(student1).getId();
+		
+		Student resultStudent = dao.get(newId);
+		
+		assertEquals(newId, resultStudent.getId());
+		
+		resultStudent.setName(newName);
+		dao.update(resultStudent);
+		
+		resultStudent = dao.get(resultStudent.getId());
+		assertEquals(newName, resultStudent.getName());
+	}
+	
+	@Test
+	public void testDelete() {
+		int id1 = dao.create(student1).getId();
+		
+		Student resultStudent = dao.get(id1);
+		assertEquals(resultStudent.getId(), id1);
+		
+		int beforeSize = dao.getAll().size();
+		
+		dao.delete(resultStudent);
+		
+		resultStudent = dao.get(id1);
+		
+		assertEquals(beforeSize - 1, dao.getAll().size());
+		assertEquals(null, resultStudent);
+		
+	}
+
+}
