@@ -32,6 +32,8 @@ public class Student {
     private List<String> phoneNumbers;
     private Status status;
 
+    public Student() {}
+
     public Student(int id, String name, LocalDate dob, Status status, String... phoneNumbers) {
         this(id, name, dob, status, Arrays.asList(phoneNumbers));
 //        this.id = id;
@@ -97,4 +99,16 @@ public class Student {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dob=" + dob +
+                ", phoneNumbers=" + phoneNumbers +
+                ", status=" + status +
+                '}';
+    }
+
 }
