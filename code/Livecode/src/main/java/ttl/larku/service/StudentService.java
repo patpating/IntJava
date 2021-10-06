@@ -12,13 +12,23 @@ import java.util.List;
  */
 public class StudentService {
 
-    private StudentDao studentDao = new StudentDao();
+    //Program to an Interface, NOT an implementation
+    private StudentDao studentDao; // = DaoFactory.studentDao();
+//    private StudentDao studentDao = new InMemoryStudentDao();
+//    private StudentDao studentDao = new MysqlStudentDao();
+
+    //private InMemoryStudentDao studentDao = new InMemoryStudentDao();
+//    private MysqlStudentDao studentDao = new MysqlStudentDao();
+
+    public StudentService(StudentDao dao) {
+        this.studentDao = dao;
+    }
 
     public Student createStudent(Student student) {
-        if(student.getDob().until(LocalDate.now(), ChronoUnit.YEARS) < 18) {
+        if (student.getDob().until(LocalDate.now(), ChronoUnit.YEARS) < 18) {
             throw new RuntimeException("Students must be 18 or older");
         }
-       return studentDao.insert(student);
+        return studentDao.insert(student);
     }
 
     public Student getStudent(int id) {
@@ -31,9 +41,14 @@ public class StudentService {
 
     public boolean updateStudent(Student student) {
         Student oldStudent = studentDao.get(student.getId());
-        if(oldStudent != null) {
+        if (oldStudent != null) {
             return studentDao.update(student);
         }
         return false;
+    }
+
+    //    public InMemoryStudentDao getStudentDao() {
+    public StudentDao getStudentDao() {
+        return studentDao;
     }
 }

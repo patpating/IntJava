@@ -17,7 +17,7 @@ public class TestStudentDao {
 
     @Test
     public void testGetAll() {
-        StudentDao dao = new StudentDao();
+        InMemoryStudentDao dao = new InMemoryStudentDao();
         Student student1 = new Student(1, "Joe", LocalDate.of(1950, 10, 10), Student.Status.FullTime,
                 "282 929 9292", "393 9393 0303");
         dao.insert(student1);
@@ -28,7 +28,7 @@ public class TestStudentDao {
 
     @Test
     public void testUpdate_Student_With_With_Good_Id() {
-        StudentDao dao = new StudentDao();
+        InMemoryStudentDao dao = new InMemoryStudentDao();
         Student student1 = new Student(1, "Joe", LocalDate.of(1950, 10, 10), Student.Status.FullTime,
                 "282 929 9292", "393 9393 0303");
         dao.insert(student1);
@@ -40,7 +40,7 @@ public class TestStudentDao {
 
     @Test
     public void testUpdate_Student_With_With_Bad_Id() {
-        StudentDao dao = new StudentDao();
+        InMemoryStudentDao dao = new InMemoryStudentDao();
         Student student1 = new Student(1, "Joe", LocalDate.of(1950, 10, 10), Student.Status.FullTime,
                 "282 929 9292", "393 9393 0303");
         dao.insert(student1);

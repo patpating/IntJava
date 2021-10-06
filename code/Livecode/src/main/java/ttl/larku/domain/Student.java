@@ -1,5 +1,7 @@
 package ttl.larku.domain;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +10,7 @@ import java.util.List;
 /**
  * @author whynot
  */
-public class Student {
+public class Student implements Comparable<Student>{
 
 //    1. An integer id
 //2. A name
@@ -111,4 +113,14 @@ public class Student {
                 '}';
     }
 
+    @Override
+    public int compareTo(Student other) {
+        return Integer.compare(id, other.id);
+//        if(this.id < other.id) {
+//            return -1;
+//        } else if(this.id == other.id) {
+//            return 0;
+//        }
+//        return 1;
+    }
 }
