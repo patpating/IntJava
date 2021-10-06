@@ -32,12 +32,6 @@ public class Student {
     private List<String> phoneNumbers;
     private Status status;
 
-    class PhoneNumber {
-        private String countryCode;
-        private String areaCode;
-        private String number;
-    }
-
     public Student(int id, String name, LocalDate dob, Status status, String... phoneNumbers) {
         this(id, name, dob, status, Arrays.asList(phoneNumbers));
 //        this.id = id;
