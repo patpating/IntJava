@@ -34,6 +34,14 @@ public class Student implements Comparable<Student>{
     private List<String> phoneNumbers;
     private Status status;
 
+    private String otherProp;
+    public String getOtherProp() {
+        return otherProp;
+    }
+    public void setOtherProp(String op) {
+        otherProp = op;
+    }
+
     public Student() {}
 
     public Student(int id, String name, LocalDate dob, Status status, String... phoneNumbers) {
@@ -113,7 +121,7 @@ public class Student implements Comparable<Student>{
                 '}';
     }
 
-    @Override
+//    @Override
     public int compareTo(Student other) {
         return Integer.compare(id, other.id);
 //        if(this.id < other.id) {

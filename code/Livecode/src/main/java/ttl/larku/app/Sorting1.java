@@ -8,13 +8,15 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * @author whynot
  */
 public class Sorting1 {
 
-//    StudentService service = new StudentService();
+    //    StudentService service = new StudentService();
     public static void main(String[] args) {
         Sorting1 ra = new Sorting1();
         //ra.sorting1();
@@ -22,7 +24,8 @@ public class Sorting1 {
 
     }
 
-    //public static <T extends Comparable<T>> void sort(List<T> list) {}
+    public static <A extends Comparable<A>> void sort(List<A> list) {
+    }
 
     public void sorting1() {
         StudentService service = TheFactory.studentService();
@@ -30,12 +33,13 @@ public class Sorting1 {
         List<Student> students = service.getAllStudents();
 
         Collections.sort(students);
-        for(Student s : students) {
+        for (Student s : students) {
             System.out.println(s);
         }
     }
 
-//    public static <T> void sort(List<T> list, Comparator<T> c) {}
+    public static <T> void sort(List<T> list, Comparator<T> c) {
+    }
 
     public void sorting2() {
         StudentService service = TheFactory.studentService();
@@ -50,10 +54,14 @@ public class Sorting1 {
             }
         };
 
-        //Get rid of function names etc.
-        Comparator<Student> nc3 = (Student student1, Student student2) -> {
+        Comparator<Student> ncx = (Student student1, Student student2) -> {
                 return student1.getName().compareTo(student2.getName());
             };
+
+        //Get rid of function names etc.
+        Comparator<Student> nc3 = (Student student1, Student student2) -> {
+            return student1.getName().compareTo(student2.getName());
+        };
 
         //Arguments not always needed
         Comparator<Student> nc4 = (student1, student2) -> {
@@ -67,17 +75,75 @@ public class Sorting1 {
 
         Collections.sort(students, (student1, student2) -> student1.getName().compareTo(student2.getName()));
 
-        for(Student s : students) {
-            System.out.println(s);
-        }
+        Collections.sort(students, (student1, student2) -> student1.getDob().compareTo(student2.getDob()));
+
+        Consumer<Student> cc = new Consumer<Student>() {
+            @Override
+            public void accept(Student student) {
+                System.out.println(student);
+            }
+        };
+
+        students.forEach(this::lotsOfCode);
+
+//        students.forEach(s -> specialPrint(s));
+
+        OtherClass oc = new OtherClass();
+        students.forEach(OtherClass::specialPrint);
+
+
+
+        students.forEach(System.out::println);
+
+//        for (Student s : students) {
+//            System.out.println(s);
+//        }
+
     }
 
-    class NameComparator implements Comparator<Student>
-            {
-                @Override
-                public int compare(Student student1, Student student2) {
-                    return student1.getName().compareTo(student2.getName());
-                }
+
+    public void lotsOfCode(Student s) {
+        //Lot's of code
+        System.out.println(s);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //put into DB
+
+    }
+
+    interface MyInterface {
+        public void doit(String s);
+    }
+
+    class NameComparator implements Comparator<Student> {
+        @Override
+        public int compare(Student student1, Student student2) {
+            return student1.getName().compareTo(student2.getName());
+        }
     }
 
     public static void initStudentService(StudentService service) {
