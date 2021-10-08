@@ -1,14 +1,30 @@
 package ttl.larku.app;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author whynot
  */
 public class GenericsDemo {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GenericsDemo that = (GenericsDemo) o;
+        return i == that.i;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(i);
+    }
+
+    private int i;
 
     public static void main(String[] args) {
         GenericsDemo gd = new GenericsDemo();
@@ -47,15 +63,42 @@ public class GenericsDemo {
         add(intList, iarr);
         intList.forEach(System.out::println);
 
-//        List<String> lstr = new ArrayList<>();
+        List<String> lstr = new ArrayList<>();
+//        add(lstr, iarr);
 //        sum(lstr);
+
+        int f = frequency(numList, 22.3);
+        f = frequency(intList, 22.3);
+        f = frequency(lstr, "abc");
+
+        copy(numList, intList);
+
+//        copy(intList, numList);
     }
+
+    //T == number
+    public static <T> void copy(List<? super T> dest, List<? extends T> source) {
+
+    }
+
+    static int frequency(Collection<?> c, Object o) {
+
+//        c.add("abc");
+        int num = 0;
+        for(Object obj : c) {
+            if(obj.equals(o)) {
+                num++;
+            }
+        }
+        return num;
+    }
+
 
     //PECS - Producer Extends, Consumer Super
 
 
     //Consumer Super. Because dest is consuming the data
-    public <T> void add(List<? super T> dest, T[] arr) {
+    public <T> void add(List<? super T> dest, T... arr) {
 //       Integer x = dest.get(0);
         for (T it : arr) {
             dest.add(it);

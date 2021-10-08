@@ -1,5 +1,6 @@
 package ttl.larku.reflect.basic;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -23,7 +24,10 @@ public class RuntimeInvocationExample {
 
 			//Object clazzInstance = clazz.getDeclaredConstructor().newInstance();
 
-			Object clazzInstance = clazz.newInstance();
+			Constructor<?> ctor = clazz.getDeclaredConstructor(int.class);
+			Object clazzInstance = ctor.newInstance(10);
+
+//			Object clazzInstance = clazz.newInstance();
 
 			// Find the doStuff Method
 			Method method = clazz.getMethod("doStuff", String.class);
@@ -70,8 +74,8 @@ public class RuntimeInvocationExample {
 class OtherClass {
 	private int i = 0;
 
-	public OtherClass() {
-	}
+//	public OtherClass() {
+//	}
 
 	public OtherClass(int x) {
 		i = x;
