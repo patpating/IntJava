@@ -1,0 +1,20 @@
+1. Create a service class called CustomerService which will allow you to interact with Customer
+resources. The CustomerService class should allow you to
+1. Retrieve a Customer using a customer id.
+2. Retrieve all customers.
+3. Insert a customer.
+Optionally, you can add functionality to update and delete a customer.
+You can decide if you want to also create a CustmerDAO to be the keeper of the data.
+The Customer class should have at least the following properties:
+1. An integer id
+2. A name
+3. A dateOfBirth of type LocalDate
+1. You can initialize a LocalDate with the of method, e.g. LocalDate.of(1957, 10, 10)
+4. Zero or more phone numbers
+5. A status, which can have the following values:
+• Privileged
+• Normal
+• Restricted
+You can add any other properties you want.
+Write some code to test your classes. This can be either in the form of a main method or unit
+tests.
